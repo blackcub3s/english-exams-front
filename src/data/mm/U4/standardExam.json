@@ -1,0 +1,41 @@
+{
+  "testId": "standardExamU4",
+  "title": "Progress test",
+  "exercises": [
+    {
+      "id": "ex1",
+      "type": "drag_and_drop",
+      "title": "Complete the sentences with the words in the box.",
+      "wordBank": ["dry", "freezing", "ice", "showers", "thunderstorm", "wet"],
+      "sentences": [
+        {
+          "id": 1,
+          "text": "Be careful on your bicycle today. It’s very cold and the water on the road is solid _____."
+        },
+        {
+          "id": 2,
+          "text": "The desert is hot and very _____ because there isn’t much rain."
+        },
+        {
+          "id": 3,
+          "text": "There are _____ in many areas this morning, so take your umbrellas."
+        },
+        {
+          "id": 4,
+          "text": "We’re stopping our hockey match because a _____ is coming. Look, the sky is black!"
+        },
+        {
+          "id": 5,
+          "text": "Temperatures are below _____ in many parts of the country, with snow in some places."
+        },
+        {
+          "id": 6,
+          "text": "There’s a lot of rain in the north today. The _____ weather is good for plants but not for people who want to go outside."
+        }
+      ],
+      "score": {
+        "total": 6
+      }
+    }
+  ]
+}
