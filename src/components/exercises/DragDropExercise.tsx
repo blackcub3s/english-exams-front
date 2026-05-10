@@ -1,7 +1,4 @@
-type Sentence = {
-  id: number;
-  text: string;
-};
+import type { Sentence } from "../../types/exercises";
 
 function DragDropExercise({ data }: any) {
   return (
