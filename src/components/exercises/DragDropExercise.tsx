@@ -22,7 +22,6 @@ function DragDropExercise({data,desordena,}: {
       <h3>
         <b>{data.id}</b> {data.title}
       </h3>
-      
 
 
       {/*Renderitzo la llista d'items de l'exercici!*/}
