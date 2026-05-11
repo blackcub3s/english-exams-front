@@ -14,9 +14,6 @@ function App() {
         desordena={true}/>
     </section>
 
-    <div className="p-10 bg-red-500 text-white">
-      TAILWIND TEST
-    </div>
     </>
   )
 }
