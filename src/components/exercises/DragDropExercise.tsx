@@ -12,9 +12,12 @@ function DragDropExercise({data,desordena,}: {
     data: DragDropExerciseType;
     desordena: boolean;
   }) {
+
   const sentencesToRender = desordena
 ? [...data.sentences].sort(() => Math.random() - 0.5)
     : data.sentences;
+
+  const boxToRender = [...data.wordBank];
 
   return (
     <div>
@@ -22,6 +25,13 @@ function DragDropExercise({data,desordena,}: {
       <h3>
         <b>{data.id}</b> {data.title}
       </h3>
+
+      {/*Renderitzo la llista de wordbank de l'exercici!*/}
+      <ul>
+        {boxToRender.map((word) => (
+          <li>{word}</li>
+        ))}
+      </ul>
 
 
       {/*Renderitzo la llista d'items de l'exercici!*/}
