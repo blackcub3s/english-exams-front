@@ -6,8 +6,8 @@ function App() {
   return (
     <>
     <section id="center">
-      <h1>Examen tema 4</h1>
-      <h2>Vocabulary</h2>
+      {/*<h1>Examen tema 4</h1>*/}
+      {/*<h2>Vocabulary</h2>*/}
 
       <ExerciseRenderer 
         exercise={standardExam.exercises[0]} 

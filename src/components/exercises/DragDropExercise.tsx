@@ -25,7 +25,7 @@ function DragDropExercise({
     desordena ? shuffle(data.sentences) : data.sentences
   );
 
-  const [showScore, setShowScore] = useState(false);
+  const [showScore, setShowScore] = useState(true);
 
   // BOX → SENTENCE
   const handleDropOnSentence = (sentenceId: number) => {
@@ -70,95 +70,98 @@ function DragDropExercise({
     setSelectedFromSentence(null);
   };
 
-  const calculateScore = () => {
-    let correct = 0;
-    sentencesToRender.forEach((s) => {
-      if (answers[s.id]) correct++;
-    });
-    return correct;
-  };
+const calculateScore = () => {
+  return data.wordBank.length - wordBank.length;
+};
 
   return (
-    <div className="w-1/2 mx-auto p-4 border rounded-lg shadow-sm bg-white">
+    <div className="w-11/12 md:w-3/4 mx-auto p-4 border rounded-lg shadow-sm bg-white">
 
       {/* HEADER */}
-      <h3 className="text-lg font-semibold mb-4">
+      <h3 className="text-lg font-semibold mb-6">
         <b>{data.id}</b> {data.title}
       </h3>
 
-      {/* WORD BANK */}
-      <ul
-        className="flex flex-wrap gap-2 justify-center border border-dashed bg-gray-100 p-3 rounded mb-6 min-h-[50px]"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={handleDropOnBox}
-      >
-        {wordBank.map((word) => (
-          <li
-            key={word}
-            draggable
-            onDragStart={() => {
-              setSelectedWord(word);
-              setSelectedFromSentence(null);
-            }}
-            className="px-3 py-1 bg-white border rounded cursor-grab active:scale-95 transition"
+      {/* MAIN LAYOUT */}
+      <div className="flex flex-col gap-6">
+
+        {/* WORD BANK */}
+        <div className="border rounded-lg p-4 bg-gray-50">
+
+          <ul
+            className="flex flex-wrap gap-2 justify-center"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDropOnBox}
           >
-            {word}
-          </li>
-        ))}
-      </ul>
+            {wordBank.map((word) => (
+              <li
+                key={word}
+                draggable
+                onDragStart={() => {
+                  setSelectedWord(word);
+                  setSelectedFromSentence(null);
+                }}
+                className="px-3 py-1 bg-white border rounded cursor-grab active:scale-95 transition"
+              >
+                {word}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      {/* SENTENCES */}
-      <ol className="space-y-4">
-        {sentencesToRender.map((sentence, i) => {
-          const parts = sentence.text.split("_____");
+        {/* SENTENCES */}
+        <div className="border rounded-lg p-4 overflow-y-auto h-[40vh]">
 
-          return (
-            <li
-              key={sentence.id}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => handleDropOnSentence(sentence.id)}
-              className="text-left leading-relaxed"
-            >
-              <span className="font-medium mr-2">{i + 1}.</span>
+          <ol className="space-y-6">
+            {sentencesToRender.map((sentence, i) => {
+              const parts = sentence.text.split("_____");
 
-              {parts[0]}
-
-              {/* GAP DUOLINGO STYLE */}
-              <span className="inline-flex items-center justify-center min-w-[90px] mx-2">
-                {answers[sentence.id] ? (
-                  <span
-                    draggable
-                    onDragStart={() => {
-                      setSelectedFromSentence(sentence.id);
-                      setSelectedWord(null);
-                    }}
-                    className="cursor-grab bg-blue-100 px-2 py-1 rounded active:scale-95 transition"
-                  >
-                    {answers[sentence.id]}
+              return (
+                <li
+                  key={sentence.id}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={() => handleDropOnSentence(sentence.id)}
+                  className="text-left leading-relaxed"
+                >
+                  <span className="font-medium mr-2">
+                    {i + 1}.
                   </span>
-                ) : (
-                  <span className="w-[90px] border-b border-dashed border-gray-400" />
-                )}
-              </span>
 
-              {parts[1]}
-            </li>
-          );
-        })}
-      </ol>
+                  {parts[0]}
 
-      {/* BUTTON */}
-      <button
-        onClick={() => setShowScore(true)}
-        className="mt-6 px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Check answers
-      </button>
+                  {/* GAP */}
+                  <span className="inline-flex items-center justify-center min-w-[90px] mx-2">
+                    {answers[sentence.id] ? (
+                      <span
+                        draggable
+                        onDragStart={() => {
+                          setSelectedFromSentence(sentence.id);
+                          setSelectedWord(null);
+                        }}
+                        className="cursor-grab bg-blue-100 px-2 py-1 rounded active:scale-95 transition"
+                      >
+                        {answers[sentence.id]}
+                      </span>
+                    ) : (
+                      <span className="w-[90px] border-b border-dashed border-gray-400" />
+                    )}
+                  </span>
+
+                  {parts[1]}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </div>
+
+
+
 
       {/* SCORE */}
       {showScore && (
         <div className="mt-4 font-semibold">
-          Score: {calculateScore()} / {data.sentences.length}
+          completats: {calculateScore()} / {data.sentences.length}
         </div>
       )}
     </div>
