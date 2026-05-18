@@ -9,6 +9,8 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [exerciseStates, setExerciseStates] = useState<Record<string, any>>({});
 
+  console.log("app state actual", exerciseStates); //per veure l'estat actual de l'aplicacio.
+
   const exercises = standardExam.exercises;
   const currentExercise = exercises[currentIndex];
 
@@ -44,9 +46,8 @@ function App() {
         <img
           src={fletxaEsquerra}
           alt="Previous exercise"
-          className={`w-10 h-10 ${
-            currentIndex === 0 ? "opacity-30" : "hover:scale-110"
-          }`}
+          className={`w-10 h-10 ${currentIndex === 0 ? "opacity-30" : "hover:scale-110"
+            }`}
         />
       </button>
 
@@ -70,11 +71,10 @@ function App() {
         <img
           src={fletxaDreta}
           alt="Next exercise"
-          className={`w-10 h-10 ${
-            currentIndex === exercises.length - 1
+          className={`w-10 h-10 ${currentIndex === exercises.length - 1
               ? "opacity-30"
               : "hover:scale-110"
-          }`}
+            }`}
         />
       </button>
     </section>
