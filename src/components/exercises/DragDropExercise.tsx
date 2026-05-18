@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { DragDropExerciseType } from "../../types/exercises";
 
 function shuffle<T>(array: T[]) {
@@ -8,24 +8,40 @@ function shuffle<T>(array: T[]) {
 function DragDropExercise({
   data,
   desordena,
+  savedState,
+  onStateChange,
 }: {
   data: DragDropExerciseType;
   desordena: boolean;
+  savedState?: any;
+  onStateChange?: (state: any) => void;
 }) {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [selectedFromSentence, setSelectedFromSentence] = useState<number | null>(null);
 
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-
-  const [wordBank, setWordBank] = useState<string[]>(() =>
+  const [localWordBank] = useState<string[]>(() =>
     desordena ? shuffle(data.wordBank) : data.wordBank
   );
 
-  const [sentencesToRender] = useState(() =>
+  const [localSentences] = useState(() =>
     desordena ? shuffle(data.sentences) : data.sentences
   );
 
+  const answers = savedState?.answers || {};
+  const wordBank = savedState?.wordBank || localWordBank;
+  const sentencesToRender = savedState?.sentencesToRender || localSentences;
+
   const [showScore, setShowScore] = useState(true);
+
+  useEffect(() => {
+    if (!savedState && onStateChange) {
+      onStateChange({
+        answers,
+        wordBank,
+        sentencesToRender,
+      });
+    }
+  }, [data.id]);
 
   // BOX → SENTENCE
   const handleDropOnSentence = (sentenceId: number) => {
@@ -34,19 +50,17 @@ function DragDropExercise({
     const newWord = selectedWord;
     const previousWord = answers[sentenceId];
 
-    setAnswers((prev) => ({
-      ...prev,
-      [sentenceId]: newWord,
-    }));
+    const newAnswers = { ...answers, [sentenceId]: newWord };
 
-    setWordBank((prev) => {
-      let updated = prev.filter((w) => w !== newWord);
+    let newWordBank = wordBank.filter((w: string) => w !== newWord);
+    if (previousWord) {
+      newWordBank = [...newWordBank, previousWord];
+    }
 
-      if (previousWord) {
-        updated = [...updated, previousWord];
-      }
-
-      return updated;
+    onStateChange?.({
+      answers: newAnswers,
+      wordBank: newWordBank,
+      sentencesToRender,
     });
 
     setSelectedWord(null);
@@ -59,20 +73,23 @@ function DragDropExercise({
     const word = answers[selectedFromSentence];
     if (!word) return;
 
-    setAnswers((prev) => {
-      const updated = { ...prev };
-      delete updated[selectedFromSentence];
-      return updated;
-    });
+    const newAnswers = { ...answers };
+    delete newAnswers[selectedFromSentence];
 
-    setWordBank((prev) => [...prev, word]);
+    const newWordBank = [...wordBank, word];
+
+    onStateChange?.({
+      answers: newAnswers,
+      wordBank: newWordBank,
+      sentencesToRender,
+    });
 
     setSelectedFromSentence(null);
   };
 
-const calculateScore = () => {
-  return data.wordBank.length - wordBank.length;
-};
+  const calculateScore = () => {
+    return data.wordBank.length - wordBank.length;
+  };
 
   return (
     <div className="w-11/12 md:w-3/4 mx-auto p-4 border rounded-lg shadow-sm bg-white">

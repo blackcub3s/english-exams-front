@@ -7,6 +7,7 @@ import fletxaEsquerra from "./assets/paginadorEsq.png";
 
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [exerciseStates, setExerciseStates] = useState<Record<string, any>>({});
 
   const exercises = standardExam.exercises;
   const currentExercise = exercises[currentIndex];
@@ -19,6 +20,14 @@ function App() {
 
   const goPrev = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
+  };
+
+  const currentExerciseState = exerciseStates[currentExercise.id];
+  const handleStateChange = (newState: any) => {
+    setExerciseStates((prev) => ({
+      ...prev,
+      [currentExercise.id]: newState,
+    }));
   };
 
   return (
@@ -47,6 +56,8 @@ function App() {
           exercise={currentExercise}
           desordena={true}
           key={currentExercise.id}
+          savedState={currentExerciseState}
+          onStateChange={handleStateChange}
         />
       </div>
 

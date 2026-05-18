@@ -1,12 +1,12 @@
-function GapFillExercise({ data }: any) {
+function GapFillExercise({ data, savedState, onStateChange }: any) {
   return (
     <>
-    <div>
-      <h3>
-        <b>{data.id}</b> {data.title}
-      </h3>
-      
-    </div>
+      <div>
+        <h3>
+          <b>{data.id}</b> {data.title}
+        </h3>
+
+      </div>
     </>
   );
 }
