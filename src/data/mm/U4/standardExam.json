@@ -37,5 +37,54 @@
         "total": 6
       }
     }
+  ,
+    {
+    "id": "ex3",
+    "type": "drag_and_drop",
+    "title": "Complete the sentences with two words from the box to make compound nouns.",
+    "wordBank": [
+      "back",
+      "book",
+      "bottle",
+      "brush",
+      "hair",
+      "jacket",
+      "pack",
+      "paste",
+      "phrase",
+      "tooth",
+      "water",
+      "waterproof"
+    ],
+    "sentences": [
+      {
+        "id": 1,
+        "text": "A dictionary is useful when you’re in a different country, but a _____ is better because it has complete expressions. – Jake"
+      },
+      {
+        "id": 2,
+        "text": "I always take a _____ because it’s important to drink a lot when you’re travelling. – Lisa"
+      },
+      {
+        "id": 3,
+        "text": "I’ve got very long hair, so I always take a _____ on my trips. – Jenny"
+      },
+      {
+        "id": 4,
+        "text": "We like going camping so a _____ is important to carry our things. It’s better than a suitcase. – Ben"
+      },
+      {
+        "id": 5,
+        "text": "I think a toothbrush is the most important because you need to have clean teeth. But don’t forget the _____! – Ren"
+      },
+      {
+        "id": 6,
+        "text": "I always take a _____ for when it rains. I don’t want to get wet! – Marie"
+      }
+    ],
+    "score": {
+      "total": 6
+    }
+  }
   ]
 }
