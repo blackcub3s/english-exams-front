@@ -103,13 +103,13 @@ function DragDropExercise({
       <div className="flex flex-col gap-6">
 
         {/* WORD BANK */}
-        <div className="border rounded-lg p-4 bg-gray-50">
+        <div
+          className="border rounded-lg p-4 bg-gray-50 min-h-[80px]"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDropOnBox}
+        >
 
-          <ul
-            className="flex flex-wrap gap-2 justify-center"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDropOnBox}
-          >
+          <ul className="flex flex-wrap gap-2 justify-center h-full w-full">
             {wordBank.map((word) => (
               <li
                 key={word}
