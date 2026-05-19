@@ -18,5 +18,11 @@ export type DragDropExerciseType = {
   score: Score;
 };
 
-
-
+export type DoubleDragDropExerciseType = {
+  id: string;
+  type: "double_drag_and_drop";
+  title: string;
+  wordBank: string[];
+  sentences: Sentence[];
+  score: Score;
+};
