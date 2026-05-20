@@ -1,6 +1,6 @@
 # English exams
 
-An application to do english exams online implementing the type of exercises from the book english exams of macmillan education.
+An application to do english exams online implementing the type of exercises from the book english exams of macmillan education. With this the idea is to allow students to make exams implementing types of exercises google docs do not allow, such as drag and drop exercises, double drag and drop exercises, gap fill exercises, etc.
 
 # tech stack
 
