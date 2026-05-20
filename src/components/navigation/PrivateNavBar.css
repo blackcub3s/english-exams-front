@@ -1,0 +1,219 @@
+:root {
+
+    /* ---- paleta de colores ---- */
+    --colorBarraNavegacion: rgb(0, 0, 0);
+    --colorBarraNavegacionHover: rgb(194, 194, 194);
+    --MaximaAnchuraBarraNavegacion: 600px;
+    --tiempoTransicionEstandar: 0.1s;
+    --aumentoTamanyoEstandar: 1.02;
+    /*aumentos para las imagenes al hacer el hover (aumento del 2 por ciento)*/
+}
+
+
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*---------------BARRA NAVEGACIÓN-----------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+
+/*Navbar específica del pas4*/
+#navBarPas4 {
+    height: 3.6em;
+    background-color: black;
+}
+
+/*navbar de les pàgines internes*/
+#navMenuPrivado {
+    background-color: var(--colorBarraNavegacion);
+    color: white;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+}
+
+/*Ponemos estilo a los 4 elementos de la primera
+ lista no ordenada (la navbar visible sin clicar)*/
+#navMenuPrivado>ul {
+    display: grid;
+    /*ponemos una grid de 4 columnas, uno para cada elemento de la li del menú de navegación*/
+    grid-template-columns: repeat(4, 1fr);
+    /*definimos las 4 columnas con 4 fracciones de grid*/
+    text-align: center;
+    /*centramos el texto de cada elemento de navegación dentro de su columna*/
+    list-style-type: none;
+    /*quitamos los bullet points de la lista que conforma la barra de navegación -no debe haberlos-*/
+    font-size: 1em;
+
+    max-width: var(--MaximaAnchuraBarraNavegacion);
+    /*tamaño máximo horizontal*/
+    margin: 0 auto;
+    /*al definir tamaño máximo hay que centrarlo si no queda pegado a la izquierda. Usamos propiedad shorthand de margin.*/
+}
+
+
+/* ---- INICIO ÁREA COMENTARIO 1 ---- */
+
+/* Queremos conseguir que en condiciones normales (sin hacer hover encima de los elementos de la navbar) 
+haya en todo momento una border "invisible" debajo de cada li de la barra de navegación. Para ello haremos esta border
+del mismo color que la barra de navegación. 
+
+Ello tiene una implicación importante. Su existencia permitirá que
+al hacer hover sobre un li, al cambiar el color de la misma [B]
+la border-bottom no nos moverá los elementos de la web que quedan por debajo cada vez que 
+pasemos el ratón por encima [A] y que está definida. Si borrásemos la linea comentada
+con [A] en determinados casos daría problemas. Además, en todos los casos el subrayado 
+aparece desde cero y queremos que haga un fundido de entrada: esta línea también lo consigue.
+
+NOTA: esos mismos estilos (subrayado y gris, durante hover) se verán aplicados a la footer también!! Porque queremos
+conservar la misma lógica en ambos sitios 
+
+*/
+
+#navMenuPrivado ul li span,
+footer section section ul li span {
+    border-bottom: 2px solid var(--colorBarraNavegacion);
+    /*[A}*/
+
+    /*hacemos que cambios de propiedades sean graduales en entrada y salida (para el hover)*/
+    transition: color var(--tiempoTransicionEstandar) ease-in-out,
+        border-bottom var(--tiempoTransicionEstandar) ease-in-out;
+}
+
+/*queremos que cada elemento del menú de navegación sea dinámico al pasar por encima*/
+#navMenuPrivado ul li span:hover,
+footer section section ul li span:hover {
+    color: var(--colorBarraNavegacionHover);
+    border-bottom: 2px solid var(--colorBarraNavegacionHover);
+    /*[B]*/
+}
+
+
+/* ---- FIN ÁREA COMENTARIO 1 ---- */
+
+#navMenuPrivado ul li img {
+    margin: 0 0 .05em 0;
+    /*Subimos un pelín la flecha del desplegable hacia arriba*/
+    width: 9%;
+
+}
+
+/*SITUAMOS EL li de "Servicios" un poco más cerca de mis tickets*/
+#navMenuPrivado ul li:first-child {
+    position: relative;
+    left: 1.5em;
+}
+
+
+/*SITUAMOS EL li "Mis tickets" un poco mas cerca de "Mis datos"*/
+#navMenuPrivado ul li:nth-child(2) {
+    position: relative;
+    left: .8em;
+}
+
+
+
+
+
+/*SITUAMOS EL li "Contacto" un poco mas cerca de "Mis datos"*/
+#navMenuPrivado ul li:last-child {
+    position: relative;
+    right: 1.2em;
+}
+
+/*NOTA: IMPORTANTE PARA QUE NAVBAR Y FOOTER SALGAN CON LOS MISMOS HOVERS
+SUBRAYADOS Y CON COLOR GRIS*/
+#navMenuPrivado ul li a,
+footer section section ul li a {
+    text-decoration: none;
+    /*Quitamos los subrayados vestigiales de los links, que sino se ven en el hover!*/
+    color: inherit;
+    /*heretamos el color de sus padres, definidos en li y el nav: el blanco y el gris en el hover.*/
+}
+
+
+/* ------------------------------------------------*/
+/* ------------------------------------------------*/
+/* - INCIO CREACIÓN MENÚ DESPLEGABLE DE LA NAVBAR -*/
+/* ------------------------------------------------*/
+/* ------------------------------------------------*/
+
+
+/*SUBMENÚ DESPLEGABLE*/
+#navMenuPrivado ul li ul {
+    display: none;
+    /*Oculto si no pasamos sobre él*/
+    margin-top: 1em;
+    list-style-type: none;
+}
+
+
+/* MUESTRA SUBMENÚ DESPLEGABLE OCULTO AL PASAR EL RATÓN
+POR ENCIMA DE "Servicios" */
+#navMenuPrivado ul li:hover ul {
+    display: block;
+}
+
+
+/*¡Cuidado! Por motivos que escapan a nuestra comprensión
+cada elemento del menú desplegable queda desplazado horizontalmente
+con un espaciado irregular. Así pues, lo corregimos para cada uno,
+manualmente (ver las as: [A]) Si encontráis alguna forma de 
+solucionarlo, sin este parche, por favor, avisadnos.
+
+Asimismo hemos definido animaciones con la librería Animate.style (que
+cargamos de la CDN como un link en el html) usando el keyframe para
+"fadeInDown" que pasamos en la propiedad "animation" [B].
+
+Estas animaciones serán de distinta duración para cada uno
+de los tres elementos. El primer elemento del desplegable (front-end)
+va a tener .8s de duración, el segundo el doble y el tercero
+el triple, quedando un diseño visual atractivo.*/
+
+/*desplegable "inflación" (inflalyzer)"*/
+#navMenuPrivado ul li ul li:first-child {
+    position: relative;
+    left: -.4em;
+    /*[A]*/
+    animation: fadeInDown;
+    /*[B]*/
+    animation-duration: .8s;
+    /*[C]*/
+}
+
+/*desplegable "Categorizer"*/
+#navMenuPrivado ul li ul li:nth-child(2) {
+    position: relative;
+    left: .1em;
+    /*[A]*/
+    animation: fadeInDown;
+    /*[B]*/
+    animation-duration: 1.6s;
+    /*[C]*/
+}
+
+/*desplegable "Intervalizer"*/
+#navMenuPrivado ul li ul li:last-child {
+    position: relative;
+    left: .05em;
+    /*[A]*/
+    animation: fadeInDown;
+    /*[B]*/
+    animation-duration: 2.4s;
+    /*[C]*/
+}
+
+/*Espaciado entre los elementos del desplegable*/
+#navMenuPrivado ul li ul li {
+    margin-top: .5em;
+}
+
+
+#navMenuPrivado ul li ul li:hover {
+    color: var(--colorBarraNavegacionHover);
+}
+
+
+
+/* ----------------------------------------------*/
+/* -  FIN MENÚ DESPLEGABLE DE LA NAVBAR         -*/
+/* ----------------------------------------------*/
