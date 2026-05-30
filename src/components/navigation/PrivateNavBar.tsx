@@ -7,7 +7,7 @@ function PrivateNavBar() {
                 <ul>
                     <li>
                         <span>Servicios</span>
-                        <img src="/src/assets/icons/flechaDesplegablePaint.png" alt="v" />
+                        <img src="/src/assets/flechaDesplegablePaint.png" alt="v" />
                         <ul>
                             <li><a href="#PRIV_evolucionInflacionPorProducto">Inflalyzer</a></li>
                             <li><a href="#priv_categorizer">Categorizer</a></li>
